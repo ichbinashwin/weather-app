@@ -1,1 +1,106 @@
-<a href=""></a>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkyMood – Weather</title>
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="preconnect" href="https://geocoding-api.open-meteo.com">
+  <link rel="preconnect" href="https://ipapi.co">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="theme-default">
+  <header class="nav">
+    <div class="brand">
+      <img src="assets/logo.svg" alt="logo" onerror="this.style.display='none'">
+      <span>SkyMood</span>
+    </div>
+
+    <form id="searchForm" autocomplete="off">
+      <input id="searchInput" type="text" inputmode="text"
+             placeholder="Enter city or ZIP…" aria-label="City or ZIP" />
+      <button id="searchBtn" type="submit" title="Search">Go</button>
+    </form>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="topline">
+        <h1 id="locationName">Detecting your location…</h1>
+        <span id="updatedAt" class="muted"></span>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="big" id="temp">--°</div>
+          <div class="label">Temperature</div>
+        </div>
+        <div class="stat">
+          <div class="big" id="condition">—</div>
+          <div class="label">Condition</div>
+        </div>
+        <div class="stat">
+          <div class="big" id="humidity">--%</div>
+          <div class="label">Humidity</div>
+        </div>
+        <div class="stat">
+          <div class="big" id="wind">--</div>
+          <div class="label">Wind</div>
+        </div>
+      </div>
+
+      <p id="hint" class="muted"></p>
+    </section>
+  </main>
+
+  <!-- SVG animation layer -->
+  <div id="animLayer" aria-hidden="true">
+    <!-- Sunny -->
+    <svg id="sunny" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      <circle cx="50" cy="50" r="16" class="sun-core"></circle>
+      <!-- rays -->
+      <g class="sun-rays">
+        <line x1="50" y1="5"  x2="50" y2="22"></line>
+        <line x1="50" y1="78" x2="50" y2="95"></line>
+        <line x1="5"  y1="50" x2="22" y2="50"></line>
+        <line x1="78" y1="50" x2="95" y2="50"></line>
+        <line x1="18" y1="18" x2="30" y2="30"></line>
+        <line x1="70" y1="70" x2="82" y2="82"></line>
+        <line x1="18" y1="82" x2="30" y2="70"></line>
+        <line x1="70" y1="30" x2="82" y2="18"></line>
+      </g>
+    </svg>
+
+    <!-- Clouds -->
+    <svg id="clouds" viewBox="0 0 200 80" preserveAspectRatio="none">
+      <g class="cloud cloud-a">
+        <ellipse cx="30" cy="40" rx="18" ry="12"></ellipse>
+        <ellipse cx="45" cy="36" rx="22" ry="14"></ellipse>
+        <ellipse cx="64" cy="42" rx="18" ry="12"></ellipse>
+      </g>
+      <g class="cloud cloud-b">
+        <ellipse cx="120" cy="30" rx="20" ry="13"></ellipse>
+        <ellipse cx="138" cy="28" rx="24" ry="15"></ellipse>
+        <ellipse cx="160" cy="33" rx="20" ry="13"></ellipse>
+      </g>
+    </svg>
+
+    <!-- Rain -->
+    <svg id="rain" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+      <g class="drops">
+        <!-- 20 raindrops -->
+        <defs>
+          <line id="drop" x1="0" y1="-10" x2="0" y2="10"></line>
+        </defs>
+        <g class="row"></g>
+      </g>
+    </svg>
+  </div>
+
+  <footer class="footer">
+    Data: Open-Meteo • IP: ipapi.co • Geocoding: Open-Meteo
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
